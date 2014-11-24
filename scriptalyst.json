@@ -1,0 +1,15 @@
+{
+	"name": "articulate",
+	"description": "ORM and query builder for Garry's Mod with drivers for multiple database implimentations",
+	"keywords": [ "database", "orm", "query builder" ],
+	"license": "MIT",
+	"autorun": {
+		"server": [
+			"articulate/articulate.lua"
+		]
+	},
+	"suggest": {
+		"drakehawke/mysqloo": "Module for using the MySQL driver",
+		"danielga/mysqloo": "Module for using the MySQL driver",
+	}
+}
