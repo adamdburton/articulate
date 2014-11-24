@@ -1,6 +1,6 @@
 {
-	"name": "articulate",
-	"description": "ORM and query builder for Garry's Mod with drivers for multiple database implimentations",
+	"name": "adamdburton/articulate",
+	"description": "ORM and query builder for Garry's Mod with drivers for multiple database implementations",
 	"keywords": [ "database", "orm", "query builder" ],
 	"license": "MIT",
 	"autorun": {
@@ -8,8 +8,11 @@
 			"articulate/articulate.lua"
 		]
 	},
+	"require": {
+		"adamdburton/stratum": "1.*"
+	},
 	"suggest": {
 		"drakehawke/mysqloo": "Module for using the MySQL driver",
-		"danielga/mysqloo": "Module for using the MySQL driver",
+		"blackawps/tmysql4": "Module for using the MySQL driver"
 	}
 }
