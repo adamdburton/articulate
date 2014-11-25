@@ -20,13 +20,20 @@ local rawset = rawset
 module('articulate')
 
 local drivers = {}
+local connections = {}
 
 function AvailableDrivers()
-	drivers = {}
-	
-	local f, d = file.Find('articulate/drivers/*.lua', 'LUA')
-	
-	for k, v in pairs(f) do
-		
-	end
+	return drivers
+end
+
+function RegisterDriver(name, className)
+	drivers[name] = className
+end
+
+function Connection(driver, name, connectionInfo)
+	return new (drivers[name], name, connectionInfo)
+end
+
+function QueryBuilder(connection)
+	return new ('ArticulateQueryBuilder', connection)
 end

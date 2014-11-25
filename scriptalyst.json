@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"autorun": {
 		"server": [
-			"articulate/articulate.lua"
+			"articulate/articulate.lua",
+			"classes/*",
+			"drivers/*",
 		]
 	},
 	"require": {
