@@ -1,7 +1,7 @@
 class 'ArticulateModel' is {
 	
 	protected 'connection' = '',
-	protected 'table' = '',
+	protected 'table' = nil,
 	protected 'primaryKey' = 'id',
 	protected 'perPage' = 15,
 	protected 'incrementing' = true,
@@ -15,15 +15,27 @@ class 'ArticulateModel' is {
 	
 	__construct = function(self, attributes)
 		self::fill(attributes)
-		
-		self::
 	end,
+	
+	-- Table
+	
+	public 'getTable' = function(self)
+		if not self.table then
+			self.table = snakeCase(self.__className)
+		end
+		
+		return self.table
+	end,
+	
+	-- Filling
 	
 	public 'fill' = function(self, attributes)
 		for key, value in pairs(attributes) do
 			self.attributes[key] = value
 		end
 	end,
+	
+	-- Finding
 	
 	public 'find' = function(self, id)
 		return self::newQuery()->where(self.primaryKey, id)->first()
@@ -44,7 +56,7 @@ class 'ArticulateModel' is {
 	-- Queries
 	
 	private 'newQueryBuilder' = function(self)
-		return articulate.QueryBuilder(self.connection):setTable(self.table)
+		return articulate.QueryBuilder(self.connection):setModel(self)
 	end
 	
 	public 'newQuery' = function(self)
@@ -125,6 +137,12 @@ class 'ArticulateModel' is {
 	        });
 	        return !is_null($caller) ? $caller['function'] : null;
 		]]
+	end
+	
+	-- Pagination
+	
+	public 'paginate' = function(self)
+		self:newQuery():limit(self.perPage)
 	end
 	
 }
