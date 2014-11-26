@@ -37,3 +37,7 @@ end
 function QueryBuilder(connection)
 	return new ('ArticulateQueryBuilder', connection)
 end
+
+function ModelQueryBuilder(connection)
+	return new ('ArticulateModelQueryBuilder', connection)
+end

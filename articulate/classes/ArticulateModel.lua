@@ -56,7 +56,7 @@ class 'ArticulateModel' is {
 	-- Queries
 	
 	private 'newQueryBuilder' = function(self)
-		return articulate.QueryBuilder(self.connection):setModel(self)
+		return articulate.ModelQueryBuilder(self.connection):setModel(self)
 	end
 	
 	public 'newQuery' = function(self)
