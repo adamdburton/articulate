@@ -30,8 +30,8 @@ function RegisterDriver(name, className)
 	drivers[name] = className
 end
 
-function Connection(driver, name, connectionInfo)
-	return new (drivers[name], name, connectionInfo)
+function Connection(driver, connectionInfo)
+	return new (drivers[name], unpack(connectionInfo))
 end
 
 function QueryBuilder(connection)
