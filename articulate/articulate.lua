@@ -13,7 +13,6 @@ local print = print
 local MsgN = MsgN
 local ErrorNoHalt = ErrorNoHalt
 local IsValid = IsValid
-local FindMetaTable = FindMetaTable
 local rawget = rawget
 local rawset = rawset
 
@@ -31,7 +30,14 @@ function RegisterDriver(name, className)
 end
 
 function Connection(driver, connectionInfo)
-	return new (drivers[name], unpack(connectionInfo))
+	assert(drivers[driver], driver .. ' must be a registered driver')
+	
+	try (function()
+		return new (drivers[name], unpack(connectionInfo))
+	end)
+	catch ('Articulate/Exceptions/MissingDriver', function(error)
+		
+	end)
 end
 
 function QueryBuilder(connection)
