@@ -1,12 +1,42 @@
+require('mysqloo')
+require('tmysql4')
+
 class 'MySQLArticulateDriver' extends 'ArticulateDriver' is {
 	
-	private 'connection' = nil,
+	connection = nil,
+	connected = false,
 	
-	__construct = function(self, hostname, username, password, database)
+	__construct = function(self, hostname, username, password, database, port, socketPath)
+		
+		port = port or 3306
 		
 		if mysqloo then
 			
-		else
+			local dbConnection = mysqloo.connect(hostname, username, password, database, port)
+			
+			function dbConnection.onConnected()
+				self.connection = dbConnection
+				self.connected = true
+			end
+			
+			function dbConnection.onConnectionFailed(db, err)
+				throw ''
+			end
+			
+			dbConnection:connect()
+			
+		elseif tmysql
+			
+			local dbConnection, dbError = tmysql.initialize(hostname, username, password, databas, port, socketPath)
+			
+			if dbConnection then
+				self.connection = dbConnection
+				self.connected = true
+			elseif dbError then
+				
+			end
+			
+			
 			
 		end
 		
