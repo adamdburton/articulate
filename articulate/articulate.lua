@@ -35,9 +35,14 @@ function Connection(driver, connectionInfo)
 	try (function()
 		return new (drivers[name], unpack(connectionInfo))
 	end)
-	catch ('Articulate/Exceptions/MissingDriver', function(error)
-		
-	end)
+	catch ({
+		['ArticulateMissingDriverException'] = function(err)
+			
+		end,
+		['ArticulateConnectionErrorException'] = function(err)
+			
+		end
+	})
 end
 
 function QueryBuilder(connection)

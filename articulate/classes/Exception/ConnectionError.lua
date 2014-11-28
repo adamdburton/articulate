@@ -1,7 +1,1 @@
-class 'ConnectionError' is {
-	
-	__construct = function(self, message)
-		error(message)
-	end
-	
-}
+class 'ArticulateConnectionErrorException' extends 'Exception' is { }

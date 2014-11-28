@@ -1,0 +1,1 @@
+exception 'InvalidBindException' extends 'Exception' is { }

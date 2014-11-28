@@ -1,17 +1,17 @@
 class 'ArticulateModel' is {
 	
-	protected 'connection' = '',
-	protected 'table' = nil,
-	protected 'primaryKey' = 'id',
-	protected 'perPage' = 15,
-	protected 'incrementing' = true,
-	protected 'timestamps' = true,
-	protected 'attributes' = {},
-	protected 'original' = {},
-	protected 'relations' = {},
-	protected 'with' = {},
+	connection = '',
+	table = nil,
+	primaryKey = 'id',
+	perPage = 15,
+	incrementing = true,
+	timestamps = true,
+	attributes = {},
+	original = {},
+	relations = {},
+	with = {},
 	
-	public 'exists' = false,
+	exists = false,
 	
 	__construct = function(self, attributes)
 		self::fill(attributes)
@@ -19,7 +19,7 @@ class 'ArticulateModel' is {
 	
 	-- Table
 	
-	public 'getTable' = function(self)
+	getTable = function(self)
 		if not self.table then
 			self.table = snakeCase(self.__className)
 		end
@@ -29,7 +29,7 @@ class 'ArticulateModel' is {
 	
 	-- Filling
 	
-	public 'fill' = function(self, attributes)
+	fill = function(self, attributes)
 		for key, value in pairs(attributes) do
 			self.attributes[key] = value
 		end
@@ -37,41 +37,41 @@ class 'ArticulateModel' is {
 	
 	-- Finding
 	
-	public 'find' = function(self, id)
+	find = function(self, id)
 		return self::newQuery()->where(self.primaryKey, id)->first()
 	end,
 	
-	public 'where' = function(self, ...)
+	where = function(self, ...)
 		return self::newQuery()->where(unpack(...))
 	end,
 		
-	public 'limit' = function(self, limit)
+	limit = function(self, limit)
 		return self::newQuery()->limit(limit)
 	end,
 	
-	public 'orderBy' = function(self, orderBy, sort)
+	orderBy = function(self, orderBy, sort)
 		return self::newQuery()->orderBy(orderBy, sort)
 	end
 	
 	-- Queries
 	
-	private 'newQueryBuilder' = function(self)
+	newQueryBuilder = function(self)
 		return articulate.ModelQueryBuilder(self.connection):setModel(self)
 	end
 	
-	public 'newQuery' = function(self)
+	newQuery = function(self)
 		return self:newQueryBuilder():with(self.with)
 	end,
 	
 	-- Relations
 	
-	public 'with' = function(self, ...)
+	with = function(self, ...)
 		local instance = new (self.__className);
 		
 		return instance:newQuery():with(unpack(...));
 	end,
 	
-	public 'hasOne' = function(self, related, foreignKey, localKey)
+	hasOne = function(self, related, foreignKey, localKey)
 		local instance = new related
 		
 		foreignKey = foreignKey or self:getForeignKey()
@@ -80,7 +80,7 @@ class 'ArticulateModel' is {
 		return new ('HasOne', instance:newQuery(), self, instance:getTable() .. '.' .. foreignKey, localKey)
 	end,
 	
-	public 'belongsTo' = function(self, related, foreignKey, otherKey, relation)
+	belongsTo = function(self, related, foreignKey, otherKey, relation)
 		relation = relation or -- find calling function name using debug library
 		foreignKey = foreignKey or snakeCase($relation) .. '_id'
 		
@@ -92,7 +92,7 @@ class 'ArticulateModel' is {
 		return new ('BelongsTo', query, self, foreignKey, otherKey, relation)
 	end,
 	
-	public 'hasMany' = function(self, related, foreignKey, localKey)
+	hasMany = function(self, related, foreignKey, localKey)
 		foreignKey = foreignKey or self:getForeignKey()
 		
 		local instance = new (related)
@@ -102,7 +102,7 @@ class 'ArticulateModel' is {
 		return new ('HasMany', instance:getQuery(), self, instance:getTable() .. '.' .. foreignKey, localKey)
 	end,
 		
-	public 'hasManyThrough' = function(self, related, through, firstKey, secondKey)
+	hasManyThrough = function(self, related, through, firstKey, secondKey)
 		through = new (through)
 		
 		firstKey = firstKey or self:getForeignKey()
@@ -114,7 +114,7 @@ class 'ArticulateModel' is {
 		return new ('HasManyThrough', query, self, through, firstKey, secondKey)
 	end,
 	
-	public 'belongsToMany' = function(self, related, table, foreignKey, otherKey, relation)
+	belongsToMany = function(self, related, table, foreignKey, otherKey, relation)
 		relation = relation or self:getBelongsToManyCaller()
 		foreignKey = foreignKey or self:getForeignKey()
 		
@@ -128,7 +128,7 @@ class 'ArticulateModel' is {
 		return new ('BelongsToMany', self, table, foreignKey, otherKey, relation)
 	end,
 	
-	protected 'getBelongsToManyCaller' = function()
+	getBelongsToManyCaller = function()
 		--[[
 	        $self = __FUNCTION__;
 	        $caller = array_first(debug_backtrace(false), function ($key, $trace) use($self) {
@@ -141,7 +141,7 @@ class 'ArticulateModel' is {
 	
 	-- Pagination
 	
-	public 'paginate' = function(self)
+	paginate = function(self)
 		self:newQuery():limit(self.perPage)
 	end
 	
