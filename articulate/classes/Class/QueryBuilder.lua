@@ -42,7 +42,7 @@ class 'ArticulateQueryBuilder' is {
 			
 			table.insert(self.joins, join)
 		else
-			local join = new ('JoinClause', self, type, table)
+			local join = new ('ArticulateJoinClause', self, type, table)
 			join:on(one, operator, two, 'and', where)
 			
 			table.insert(self.joins, join)

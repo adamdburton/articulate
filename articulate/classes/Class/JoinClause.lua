@@ -1,4 +1,4 @@
-class 'JoinClause' is {
+class 'ArticulateJoinClause' is {
 
 	builder = nil,
 	type = nil,
@@ -11,13 +11,9 @@ class 'JoinClause' is {
 		self.table = table
 	end,
 	
-	on = function(self, first, operator, second, boolean, where)
-		table.insert(self.clauses, { first = first, operator = operator, second = second, boolean = boolean or 'and', where = where })
-
-		if where then
-			self.builder:addBinding(second, 'join')
-		end
-
+	on = function(self, first, operator, second, boolean)
+		table.insert(self.clauses, { first = first, operator = operator, second = second, boolean = boolean or 'and' })
+		
 		return self
 	end,
 		
