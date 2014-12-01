@@ -1,8 +1,19 @@
 {
 	"name": "adamdburton/articulate",
 	"description": "ORM and query builder for Garry's Mod with drivers for multiple database implementations",
-	"keywords": [ "database", "orm", "query builder" ],
+	"homepage": "https://github.com/adamdburton/articulate",
+	"tags": [ "database", "orm", "query builder" ],
 	"license": "MIT",
+	"authors": [
+		{
+			"name": "Adam Burton",
+			"homepage": "http://burt0n.net",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/adamdburton/articulate/issues"
+	},
 	"autorun": {
 		"server": [
 			"articulate/articulate.lua",
