@@ -18,7 +18,7 @@
 		"server": [
 			"articulate/articulate.lua",
 			"classes/*",
-			"drivers/*",
+			"drivers/*"
 		]
 	},
 	"require": {
