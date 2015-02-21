@@ -1,13 +1,7 @@
 pcall(require, 'mysqloo')
 pcall(require, 'tmysql4')
 
-class 'MySQLArticulateDriver' extends 'ArticulateDriver' implements 'ArticulateDriver' is {
-	
-	connection = nil,
-	connected = false,
-	
-	affectedRows = 0,
-	insertID = 0,
+class 'MySQLArticulateDriver' extends 'ArticulateDriver' implements 'ArticulateDriverInterface' is {
 	
 	__construct = function(self, hostname, username, password, database, port, socketPath)
 		
@@ -37,14 +31,14 @@ class 'MySQLArticulateDriver' extends 'ArticulateDriver' implements 'ArticulateD
 				self.connection = dbConnection
 				self.connected = true
 			elseif dbError then
-				throw ('ArticulateConnectionError', dbError)
+				throw ('ArticulateConnectionErrorException', dbError)
 			end
 			
 		end
 		
 	end,
 	
-	query = function(sql, binds, successCallback, errorCallback)
+	query = function(self, sql, binds, successCallback, errorCallback, blocking)
 		
 		assert(self.connected, 'Database is not connected')
 		
@@ -56,6 +50,7 @@ class 'MySQLArticulateDriver' extends 'ArticulateDriver' implements 'ArticulateD
 			local query = self.connection:query(sql)
 			
 			function query:onSuccess(data)
+				instance.countRows = #data
 				instance.affectedRows = query:affectedRows()
 				instance.insertID = query:lastInsert()
 				
@@ -67,10 +62,16 @@ class 'MySQLArticulateDriver' extends 'ArticulateDriver' implements 'ArticulateD
 			function query:onError(err)
 				if errorCallback then
 					errorCallback(err)
+				else
+					throw ('ArticulateQueryErrorException', err)
 				end
 			end
 	
 			query:start()
+			
+			if blocking then
+				query:wait()
+			end
 			
 		else
 			
@@ -82,6 +83,12 @@ class 'MySQLArticulateDriver' extends 'ArticulateDriver' implements 'ArticulateD
 	
 	escape = function(self, str)
 		return (mysqloo and self.connection:escape(str)) or (tmysql and tmysql.escape(str)) -- Use escape function from database lib instead of the built in one
+	end,
+	
+	tableExists = function(self, table)
+		local data = self:query('SHOW TABLES LIKE ?', { table }, nil, nil, true)
+		
+		return #data == 1
 	end
 	
 }

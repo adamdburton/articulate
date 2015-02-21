@@ -49,6 +49,6 @@ function QueryBuilder(connection)
 	return new ('ArticulateQueryBuilder', connection)
 end
 
-function ModelQueryBuilder(connection)
-	return new ('ArticulateModelQueryBuilder', connection)
+function ModelQueryBuilder(connection, model)
+	return new ('ArticulateModelQueryBuilder', connection):setModel(model)
 end

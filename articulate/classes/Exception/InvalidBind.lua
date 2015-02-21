@@ -1,1 +1,1 @@
-exception 'InvalidBindException' extends 'Exception' is { }
+exception 'ArticulateInvalidBindException' extends 'Exception' is { }

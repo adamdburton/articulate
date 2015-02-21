@@ -35,9 +35,9 @@ class 'ArticulateQueryBuilder' is {
 		return self	
 	end,
 	
-	join = function(self, table, one, operator, two, type, $where)
+	join = function(self, table, one, operator, two, type, where)
 		if type(one) == 'function' then
-			local join = new ('JoinClause', self, type, table)
+			local join = new ('ArticulateJoinClause', self, type, table)
 			one(join)
 			
 			table.insert(self.joins, join)
@@ -74,7 +74,7 @@ class 'ArticulateQueryBuilder' is {
 			end
 		end
 		
-		self.connection:query(sql, binds)
+		return self.connection:query(sql, binds)
 	end,
 	
 	count = function(self, column)
