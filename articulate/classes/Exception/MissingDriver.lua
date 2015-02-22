@@ -1,1 +1,0 @@
-exception 'ArticulateMissingDriverException' extends 'Exception' is { }

@@ -1,8 +1,8 @@
 {
 	"name": "adamdburton/articulate",
-	"description": "ORM and query builder for Garry's Mod with drivers for multiple database implementations",
+	"description": "ORM for Garry's Mod, built on Pliant",
 	"homepage": "https://github.com/adamdburton/articulate",
-	"tags": [ "database", "orm", "query builder" ],
+	"tags": [ "orm" ],
 	"license": "MIT",
 	"authors": [
 		{
@@ -18,14 +18,10 @@
 		"server": [
 			"articulate/articulate.lua",
 			"classes/*",
-			"drivers/*"
 		]
 	},
 	"require": {
-		"adamdburton/stratum": "1.*"
-	},
-	"suggest": {
-		"drakehawke/mysqloo": "Module for using the MySQL driver",
-		"blackawps/tmysql4": "Module for using the MySQL driver"
+		"adamdburton/stratum": "1.*",
+		"adamdburton/pliant": "1.*"
 	}
 }

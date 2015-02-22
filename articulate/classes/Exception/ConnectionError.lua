@@ -1,1 +1,0 @@
-class 'ArticulateConnectionErrorException' extends 'Exception' is { }
