@@ -1,1 +1,0 @@
-class 'ArticulateQueryErrorException' extends 'Exception' is { }
