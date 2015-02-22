@@ -1,4 +1,4 @@
-class 'ArticulateModelQueryBuilder' extends 'ArticulateQueryBuilder' is {
+class 'ArticulateModelQueryBuilder' extends 'PliantQueryBuilder' is {
 	
 	model = nil,
 	
