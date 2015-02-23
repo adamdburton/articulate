@@ -51,13 +51,13 @@ class 'ArticulateModel' is {
 	
 	orderBy = function(self, orderBy, sort)
 		return self::newQuery()->orderBy(orderBy, sort)
-	end
+	end,
 	
 	-- Queries
 	
 	newQueryBuilder = function(self)
 		return articulate.ModelQueryBuilder(self.connection):setModel(self)
-	end
+	end,
 	
 	newQuery = function(self)
 		return self:newQueryBuilder():with(self.with)
